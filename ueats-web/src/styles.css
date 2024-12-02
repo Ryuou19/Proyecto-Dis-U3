@@ -1,0 +1,108 @@
+/* Base colors */
+:root {
+  --ue-primary: #06C167; /* Uber Eats green */
+  --ue-primary-dark: #059857; /* Darker Uber Eats green */
+  --ue-secondary: #000000; /* Black */
+  --ue-text-color: #000000; /* Black text */
+  --ue-bg-color: #ffffff; /* White background */
+}
+
+/* Body and default settings */
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: var(--ue-bg-color);
+  color: var(--ue-text-color);
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--ue-secondary);
+}
+
+.navbar-brand {
+  color: #ffffff;
+}
+
+.navbar-nav .nav-link {
+  color: #ffffff;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--ue-primary);
+  border-color: var(--ue-primary);
+  color: #ffffff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--ue-primary-dark);
+  border-color: var(--ue-primary-dark);
+  color: #ffffff;
+}
+
+.btn-link {
+  color: var(--ue-secondary);
+}
+
+.btn-link:hover,
+.btn-link:focus {
+  text-decoration: underline;
+}
+
+/* Form controls */
+.form-control {
+  border-radius: 0.40em;
+  border-color: #ddd;
+}
+
+.form-control:focus {
+  border-color: var(--ue-primary);
+  border-width: 0.2em;
+  box-shadow: none;
+}
+
+/* Custom form labels */
+.form-group label {
+  font-weight: bold;
+  color: var(--ue-text-color);
+}
+
+/* Custom card styles */
+.card {
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background-color: var(--ue-secondary);
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.card-body {
+  background-color: #ffffff;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--ue-text-color);
+  font-weight: 600;
+}
+
+/* Links */
+a {
+  color: var(--ue-primary);
+}
+
+a:hover {
+  color: var(--ue-primary-dark);
+}
+
+/* Footer */
+.footer {
+  background-color: var(--ue-secondary);
+  color: #ffffff;
+  padding: 20px 0;
+  text-align: center;
+}

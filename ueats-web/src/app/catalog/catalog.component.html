@@ -1,0 +1,17 @@
+<div *ngIf="stores.length > 0; else noStores">
+  <h2>Restaurantes en {{ userCity }}</h2>
+  <div class="store-grid">
+    <div class="store-card" *ngFor="let store of stores">
+      <img [src]="'assets/images/' + store.image" alt="{{ store.name }}" class="store-image" />
+      <div class="store-details">
+        <h3>{{ store.name }}</h3>
+        <p>Categoría: {{ store.category }}</p>
+        <p>Rating: {{ store.rating }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noStores>
+  <p>No se encontraron tiendas en tu ciudad.</p>
+</ng-template>
