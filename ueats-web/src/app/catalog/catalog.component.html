@@ -1,0 +1,59 @@
+<div class="container">
+  <h1>Restaurantes en {{userCity}}</h1>
+  
+  <div class="store-grid">
+    <div *ngFor="let store of stores" class="store-card">
+      <img [src]="'assets/images/' + store.image" [alt]="store.name">
+      <div class="store-info">
+        <h2>{{ store.name }}</h2>
+        <p>Categoría: {{ store.category }}</p>
+        <div class="rating-container">
+          <div class="stars-display">
+            <span class="rating">Rating: {{ store.rating.toFixed(1) }}</span>
+
+            <div class="stars">
+              <span *ngFor="let star of [1,2,3,4,5]" class="star" [class.filled]="star <= store.rating">★</span>
+            </div>
+          </div>
+          <button class="view-reviews" (click)="showReviews(store)">Ver Comentarios</button>
+        </div>
+        <button class="select-button" (click)="selectStore(store)">Seleccionar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para mostrar comentarios -->
+  <div class="reviews-modal" *ngIf="selectedStoreReviews">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Comentarios de {{ selectedStoreReviews.storeName }}</h2>
+        <button class="close-button" (click)="closeReviews()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="average-rating">
+          <span class="rating-number">{{ selectedStoreReviews.averageRating.toFixed(1) }}</span>
+
+          <div class="stars">
+            <span *ngFor="let star of [1,2,3,4,5]" 
+                  class="star" 
+                  [class.filled]="star <= selectedStoreReviews.averageRating">★</span>
+          </div>
+          <span class="total-reviews">({{ selectedStoreReviews.ratings.length }} reseñas)</span>
+        </div>
+        <div class="reviews-list">
+          <div *ngFor="let review of selectedStoreReviews.ratings" class="review-item">
+            <div class="review-rating">
+              <div class="stars">
+                <span *ngFor="let star of [1,2,3,4,5]" 
+                      class="star" 
+                      [class.filled]="star <= review.rating">★</span>
+              </div>
+              <span class="review-date">{{ review.createdAt | date:'medium' }}</span>
+            </div>
+            <p class="review-comment">{{ review.comment }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

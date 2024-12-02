@@ -1,0 +1,81 @@
+<div class="orders-container">
+    <div class="header-container">
+      <h2>Mis Pedidos</h2>
+      <button class="back-button" (click)="goBack()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Volver
+      </button>
+    </div>
+  
+    <div *ngIf="orders.length > 0" class="orders-list">
+      <div *ngFor="let order of orders" class="order-card">
+        <div class="order-header">
+          <div class="order-info">
+            <span class="order-id">Pedido #{{order.id}}</span>
+            <span class="order-date">{{order.createdAt | date:'medium'}}</span>
+          </div>
+          <div class="order-actions">
+            <!-- Solo mostrar el botón de calificar si el pedido no ha sido calificado -->
+            <button class="rate-button" *ngIf="!order.rated" (click)="openRatingModal(order)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+              Calificar
+            </button>
+            <button class="toggle-details" (click)="toggleDetails(order)">
+              {{ order.expanded ? 'Ocultar detalles' : 'Ver detalles' }}
+            </button>
+          </div>
+        </div>
+  
+        <div class="order-details" *ngIf="order.expanded">
+          <div class="items-list">
+            <div *ngFor="let item of order.items" class="order-item">
+              <div class="item-info">
+                <span class="product-name">{{ item.name }}</span>
+                <span class="quantity">Cantidad: {{item.quantity}}</span>
+              </div>
+              <span class="price">${{item.price.toFixed(2)}}</span>
+            </div>
+          </div>
+        </div>
+  
+        <div class="order-total">
+          <strong>Total: ${{getOrderTotal(order).toFixed(2)}}</strong>
+        </div>
+  
+        <!-- Modal de calificación -->
+        <div class="rating-modal" *ngIf="order.showRatingModal">
+          <div class="modal-content">
+            <h3>Califica tu experiencia</h3>
+            <div class="stars-container">
+              <span *ngFor="let star of [1,2,3,4,5]" 
+                    class="star" 
+                    [class.filled]="star <= (temporaryRating || currentRating)"
+                    (mouseover)="onStarHover(star)"
+                    (mouseleave)="onStarLeave()"
+                    (click)="selectRating(star)">
+                ★
+              </span>
+            </div>
+            <textarea 
+              [(ngModel)]="ratingComment" 
+              placeholder="Deja un comentario sobre tu experiencia..."
+              class="rating-comment">
+            </textarea>
+            <div class="modal-actions">
+              <button (click)="submitRating(order)">Enviar calificación</button>
+              <button (click)="closeRatingModal(order)">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="orders.length === 0" class="no-orders">
+      <p>No tienes pedidos realizados.</p>
+    </div>
+  </div>

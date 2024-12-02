@@ -1,0 +1,58 @@
+<div *ngIf="products.length > 0; else noProducts">
+  <h2>Productos del Restaurante</h2>
+  <button (click)="toggleCart()" class="cart-button">
+    Carrito ({{cartItems.length}})
+  </button>
+
+  <div class="product-grid">
+    <div *ngFor="let product of products" class="product-card">
+      <img [src]="'assets/images/' + product.image" [alt]="product.name" class="product-image">
+      <div class="product-details">
+        <h3>{{ product.name }}</h3>
+        <p><strong>Precio:</strong> ${{ product.price.toFixed(2) }}</p>
+        <button (click)="addToCart(product)" class="add-to-cart-btn">
+          Agregar al carrito
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="cartOpen" class="cart-modal">
+    <div class="cart-content">
+      <h3>Carrito de Compras</h3>
+      
+      <div *ngIf="cartItems.length > 0" class="cart-items">
+        <div *ngFor="let item of cartItems" class="cart-item">
+          <img [src]="'assets/images/' + item.image" [alt]="item.name" class="cart-item-image">
+          <div class="cart-item-details">
+            <h4>{{item.name}}</h4>
+            <p>${{item.price.toFixed(2)}}</p>
+            <div class="quantity-controls">
+              <button (click)="removeFromCart(item)">-</button>  <!-- Pasamos el item completo -->
+              <span>{{item.quantity}}</span>
+              <button (click)="addToCart(item)">+</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="cart-total">
+          <h4>Total: ${{getCartTotal().toFixed(2)}}</h4>
+        </div>
+      </div>
+      
+      <div *ngIf="cartItems.length === 0" class="empty-cart">
+        <p>El carrito está vacío</p>
+      </div>
+
+      <div class="cart-actions">
+        <button (click)="clearCart()" [disabled]="cartItems.length === 0">Limpiar Carrito</button>
+        <button (click)="placeOrder()" [disabled]="cartItems.length === 0">Realizar Pedido</button>
+        <button (click)="closeCart()">Cerrar Carrito</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noProducts>
+  <p>No se encontraron productos para este restaurante.</p>
+</ng-template>
