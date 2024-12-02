@@ -38,4 +38,66 @@
     margin: 5px 0;
     color: #555;
   }
-  
+  /* Estilo para la cuadrícula */
+.store-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Estilo para las tarjetas */
+.store-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer; /* Hacer que toda la tarjeta sea clickeable */
+  transition: transform 0.2s ease; /* Efecto de zoom */
+}
+
+.store-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para las imágenes */
+.store-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+/* Detalles de cada tienda */
+.store-details h3 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.store-details p {
+  margin: 5px 0;
+  color: #555;
+}
+
+/* Estilo para los botones */
+.store-card button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer; /* Cambiar cursor en los botones */
+  transition: background-color 0.3s ease;
+}
+
+.store-card button:hover {
+  background-color: #0056b3;
+}

@@ -1,5 +1,8 @@
+
 <div *ngIf="products.length > 0; else noProducts">
+  
   <h2>Productos del Restaurante</h2>
+  <button (click)="toggleCart()" class="cart-button">Carrito</button>
   <div class="product-grid">
     <div *ngFor="let product of products" class="product-card">
       <img [src]="'assets/images/' + product.image" [alt]="product.name" class="product-image">
@@ -7,6 +10,18 @@
         <h3>{{ product.name }}</h3>
         <p><strong>Precio:</strong> ${{ product.price.toFixed(2) }}</p>
       </div>
+    </div>
+  </div>
+
+
+
+
+  <div *ngIf="cartOpen" class="cart-modal">
+    <div class="cart-content">
+      <h3>Opciones del Carrito</h3>
+      <button (click)="clearCart()">Limpiar Carrito</button>
+      <button (click)="placeOrder()">Realizar Pedido</button>
+      <button (click)="closeCart()">Cerrar Carrito</button>
     </div>
   </div>
 </div>

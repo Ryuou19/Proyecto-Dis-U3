@@ -7,6 +7,7 @@
         <h3>{{ store.name }}</h3>
         <p>Categoría: {{ store.category }}</p>
         <p>Rating: {{ store.rating }}</p>
+        <button (click)="saveSelectedStoreId(store.id)">Seleccionar</button> <!-- Botón para guardar ID -->
       </div>
     </div>
   </div>
@@ -15,3 +16,4 @@
 <ng-template #noStores>
   <p>No se encontraron tiendas en tu ciudad.</p>
 </ng-template>
+

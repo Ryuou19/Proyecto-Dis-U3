@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-catalog',
   standalone: true,
-  imports: [HttpClientModule, CommonModule],
+  imports: [HttpClientModule, CommonModule], // Usa HttpClientModule aquí
   templateUrl: './catalog.component.html',
   styleUrls: ['./catalog.component.css']
 })
@@ -13,7 +14,7 @@ export class CatalogComponent implements OnInit {
   userCity: string = '';
   stores: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.userCity = localStorage.getItem('userCity') || '';
@@ -39,5 +40,12 @@ export class CatalogComponent implements OnInit {
         this.stores = [];
       }
     );
+  }
+
+  // Guardar el ID de la tienda seleccionada y redirigir
+  saveSelectedStoreId(storeId: number): void {
+    localStorage.setItem('selectedStoreId', storeId.toString());
+    alert(`Store ID ${storeId} saved to localStorage`);
+    this.router.navigate(['/products']); // Navegar a la ruta "/products"
   }
 }
