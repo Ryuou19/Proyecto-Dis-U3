@@ -1,7 +1,7 @@
 <div *ngIf="products.length > 0; else noProducts">
   <h2>Productos del Restaurante</h2>
   <button (click)="toggleCart()" class="cart-button">
-    Carrito ({{cartItems.length}})
+    Carrito ({{getTotalItems()}})
   </button>
 
   <div class="product-grid">
