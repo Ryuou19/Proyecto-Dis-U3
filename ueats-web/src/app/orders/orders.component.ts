@@ -77,7 +77,7 @@
             const product = this.products.find(p => p.id === item.productId);
             return {
               ...item,
-              name: product?.name || `Producto ${item.productId}`
+              name: product?.name || `Producto ${item.productId}` 
             };
           })
         }));

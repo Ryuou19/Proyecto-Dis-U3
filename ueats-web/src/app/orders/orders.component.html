@@ -14,7 +14,8 @@
       <div *ngFor="let order of orders" class="order-card">
         <div class="order-header">
           <div class="order-info">
-            <span class="order-id">Pedido #{{order.id}}</span>
+            <h3 class="titulo_pedido">Codigo de pedido:</h3>
+            <span class="order-id"> #{{order.id}}</span>
             <span class="order-date">{{order.createdAt | date:'medium'}}</span>
           </div>
           <div class="order-actions">
@@ -35,13 +36,16 @@
           <div class="items-list">
             <div *ngFor="let item of order.items" class="order-item">
               <div class="item-info">
+                <!-- Mostrando el nombre del producto -->
                 <span class="product-name">{{ item.name }}</span>
-                <span class="quantity">Cantidad: {{item.quantity}}</span>
+                <span class="quantity">Cantidad: {{ item.quantity }}</span>
               </div>
-              <span class="price">${{item.price.toFixed(2)}}</span>
+              <!-- Precio del producto -->
+              <span class="price">Precio unitario: ${{ item.price.toFixed(2) }}</span>
             </div>
           </div>
         </div>
+        
   
         <div class="order-total">
           <strong>Total: ${{getOrderTotal(order).toFixed(2)}}</strong>

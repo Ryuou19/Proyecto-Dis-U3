@@ -3,7 +3,7 @@
   
   <div class="store-grid">
     <div *ngFor="let store of stores" class="store-card">
-      <img [src]="'assets/images/' + store.image" [alt]="store.name">
+      <img class="imagenes_tienda" [src]="'assets/images/Tienda_imagens/' + store.image" [alt]="store.name">
       <div class="store-info">
         <h2>{{ store.name }}</h2>
         <p>Categoría: {{ store.category }}</p>
@@ -17,7 +17,7 @@
           </div>
           <button class="view-reviews" (click)="showReviews(store)">Ver Comentarios</button>
         </div>
-        <button class="select-button" (click)="selectStore(store)">Seleccionar</button>
+        <button class="select-button" (click)="selectStore(store)">Ver menu Tienda</button>
       </div>
     </div>
   </div>

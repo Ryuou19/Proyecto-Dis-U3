@@ -29,9 +29,11 @@ export class AppComponent implements OnInit {
       filter((event: Event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
       this.currentRoute = event.url;
-      console.log('Current route:', this.currentRoute);
+  
+      this.checkLoginStatus();
     });
   }
+  
 
   ngOnInit() {
     this.checkLoginStatus();
@@ -47,7 +49,6 @@ export class AppComponent implements OnInit {
     if (name && this.isLoggedIn) {
       this.userName = name;
     } else {
-      // Si no hay nombre pero hay ID, usar un valor por defecto
       if (this.isLoggedIn) {
         this.userName = 'Usuario';
       }
@@ -81,6 +82,7 @@ export class AppComponent implements OnInit {
     this.isLoggedIn = false;
     this.router.navigate(['/']);
     this.showUserMenu = false;
+    this.checkLoginStatus();
   }
 
   @HostListener('document:click', ['$event'])
@@ -94,6 +96,18 @@ export class AppComponent implements OnInit {
   }
 
   goToCatalog() {
-    this.router.navigate(['/catalog']);
+    const accountId = localStorage.getItem('accountId');
+    const name = localStorage.getItem('userName');
+    this.isLoggedIn = !!accountId;
+    console.log('Checking login status - accountId:', accountId);
+
+    if (name && this.isLoggedIn) {
+      this.router.navigate(['/catalog']);
+    } else {
+      if (this.isLoggedIn) {
+        this.router.navigate(['/'])
+      }
+    }
+
   }
 }

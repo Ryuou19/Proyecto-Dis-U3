@@ -24,8 +24,9 @@ public class DatabaseSeeder {
                 Store store3 = createStore("Sushi World", "Japanese Food", "Curico", 4.8, "sushi_world_logo.png");
                 Store store4 = createStore("Taco Town", "Mexican Food", "Concepción", 4.3, "taco_town_logo.png");
                 Store store5 = createStore("Pizza Planet", "Pizza", "La Serena", 4.6, "pizza_planet_logo.png");
+                Store store6 = createStore("Grieta del invocador", "Venta de escurridisos", "Curico", 4.6, "lolFoto.png");
 
-                List<Store> stores = Arrays.asList(store1, store2, store3, store4, store5);
+                List<Store> stores = Arrays.asList(store1, store2, store3, store4, store5,store6);
                 storeRepository.saveAll(stores);
 
                 // Crear productos para cada tienda
@@ -34,6 +35,7 @@ public class DatabaseSeeder {
                 productRepository.saveAll(createProductsForStore3(store3));
                 productRepository.saveAll(createProductsForStore4(store4));
                 productRepository.saveAll(createProductsForStore5(store5));
+                productRepository.saveAll(createProductsForStore6(store6));
             }
         };
     }
@@ -100,6 +102,11 @@ public class DatabaseSeeder {
                 createProduct("Vegetarian Pizza", 10.99, "vegetarian_pizza.png", store),
                 createProduct("Garlic Breadsticks", 5.99, "garlic_breadsticks.png", store),
                 createProduct("Hawaiian Pizza", 12.49, "hawaiian_pizza.png", store)
+        );
+    }
+    private List<Product> createProductsForStore6(Store store) {
+        return Arrays.asList(
+                createProduct("escurridizo", 20.99, "escurridizo.png", store)
         );
     }
 
