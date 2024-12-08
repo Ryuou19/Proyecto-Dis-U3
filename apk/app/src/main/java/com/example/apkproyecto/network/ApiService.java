@@ -1,10 +1,13 @@
 package com.example.apkproyecto.network;
 
+import com.example.apkproyecto.models.Catalog;
+import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
-import java.util.List;
+import retrofit2.http.Query;
 
 public interface ApiService {
-    @GET("/api/data") // Endpoint del backend
-    Call<List<MyEntity>> getData(); // Cambia MyEntity según tu modelo de datos
+    // Endpoint para obtener productos por tienda
+    @GET("/product")
+    Call<List<Catalog>> getProductsByStore(@Query("storeId") Long storeId);
 }

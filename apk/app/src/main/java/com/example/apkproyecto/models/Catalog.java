@@ -1,4 +1,4 @@
 package com.example.apkproyecto.models;
 
-public class MyEntity {
+public class Catalog {
 }

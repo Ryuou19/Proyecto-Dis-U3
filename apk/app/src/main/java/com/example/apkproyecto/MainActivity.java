@@ -2,89 +2,58 @@ package com.example.apkproyecto;
 
 import android.os.Bundle;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.View;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.example.apkproyecto.databinding.ActivityMainBinding;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import com.example.apkproyecto.network.ApiService;
+import com.example.apkproyecto.network.RetrofitClient;
+import com.example.apkproyecto.models.Catalog;
+import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private WebView myWebView;
-    private WebSettings myWebSettings;
-
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        // Configuración del WebView existente
         myWebView = findViewById(R.id.web1);
-        myWebSettings = myWebView.getSettings();
-        myWebSettings.setJavaScriptEnabled(true);
-        myWebSettings.setDomStorageEnabled(true);
-        myWebView.loadUrl("https://www.youtube.com/");
+        myWebView.getSettings().setJavaScriptEnabled(true);
+        myWebView.getSettings().setDomStorageEnabled(true);
+        myWebView.loadUrl("http://localhost:4200");
         myWebView.setWebViewClient(new WebViewClient());
 
+        // Consumir datos desde el backend
+        fetchProductsFromBackend(1L); // Cambia "1L" por el ID de la tienda que desees
+    }
 
-        setSupportActionBar(binding.toolbar);
+    private void fetchProductsFromBackend(Long storeId) {
+        ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
+        apiService.getProductsByStore(storeId).enqueue(new Callback<List<Catalog>>() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAnchorView(R.id.fab)
-                        .setAction("Action", null).show();
+            public void onResponse(Call<List<Catalog>> call, Response<List<Catalog>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Catalog> products = response.body();
+                    Toast.makeText(MainActivity.this, "Productos obtenidos: " + products.size(), Toast.LENGTH_SHORT).show();
+                    // Aquí puedes procesar los datos (mostrar en RecyclerView, por ejemplo)
+                } else {
+                    Toast.makeText(MainActivity.this, "Error al obtener productos", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Catalog>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Error de red: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
     }
 }
