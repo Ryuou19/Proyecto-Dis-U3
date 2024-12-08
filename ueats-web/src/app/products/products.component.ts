@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 interface Product {
   id: number;
@@ -27,7 +28,10 @@ export class ProductsComponent implements OnInit {
   cartOpen: boolean = false;
   tempQuantities: { [key: number]: number } = {};
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     const storedStoreId = localStorage.getItem('selectedStoreId');
@@ -86,6 +90,12 @@ export class ProductsComponent implements OnInit {
     
     this.tempQuantities[product.id] = 1;
     this.saveCart();
+
+    const cartButton = document.querySelector('.cart-button');
+  cartButton?.classList.add('cart-bump');
+  setTimeout(() => {
+    cartButton?.classList.remove('cart-bump');
+  }, 300);
   }
 
   removeFromCart(item: CartItem): void {
@@ -170,5 +180,9 @@ export class ProductsComponent implements OnInit {
         alert('Error al realizar el pedido: ' + (error.error?.message || 'Error desconocido'));
       }
     );
+  }
+
+  goBack() {
+    this.router.navigate(['/catalog']);
   }
 }
