@@ -25,8 +25,9 @@ public class DatabaseSeeder {
                 Store store4 = createStore("Taco Town", "Mexican Food", "Concepción", 4.3, "taco_town_logo.png");
                 Store store5 = createStore("Pizza Planet", "Pizza", "La Serena", 4.6, "pizza_planet_logo.png");
                 Store store6 = createStore("Grieta del invocador", "Venta de escurridisos", "Curico", 4.6, "lolFoto.png");
+                Store store7 = createStore("Tiroteo", "pium pium", "Puente Alto", 4.6, "highbridge.jpeg");
 
-                List<Store> stores = Arrays.asList(store1, store2, store3, store4, store5,store6);
+                List<Store> stores = Arrays.asList(store1, store2, store3, store4, store5,store6,store7);
                 storeRepository.saveAll(stores);
 
                 // Crear productos para cada tienda
@@ -36,6 +37,7 @@ public class DatabaseSeeder {
                 productRepository.saveAll(createProductsForStore4(store4));
                 productRepository.saveAll(createProductsForStore5(store5));
                 productRepository.saveAll(createProductsForStore6(store6));
+                productRepository.saveAll(createProductsForStore7(store7));
             }
         };
     }
@@ -52,12 +54,12 @@ public class DatabaseSeeder {
 
     private List<Product> createProductsForStore1(Store store) {
         return Arrays.asList(
-                createProduct("Spaghetti Bolognese", 12.99, "spaghetti_bolognese.png", store),
-                createProduct("Lasagna", 14.99, "lasagna.png", store),
-                createProduct("Pesto Penne", 11.49, "pesto_penne.png", store),
-                createProduct("Tiramisu", 7.99, "tiramisu.png", store),
-                createProduct("Garlic Bread", 4.99, "garlic_bread.png", store),
-                createProduct("Fettuccine Alfredo", 13.99, "fettuccine_alfredo.png", store)
+                createProduct("Spaghetti Bolognese", 12.99, "spaghetti_bolognese.jpeg", store),
+                createProduct("Lasagna", 14.99, "lasagna.jpeg", store),
+                createProduct("Pesto Penne", 11.49, "pesto_penne.jpeg", store),
+                createProduct("Tiramisu", 7.99, "tiramisu.jpeg", store),
+                createProduct("Garlic Bread", 4.99, "garlic_bread.jpeg", store),
+                createProduct("Fettuccine Alfredo", 13.99, "fettuccine_alfredo.jpeg", store)
         );
     }
 
@@ -85,28 +87,39 @@ public class DatabaseSeeder {
 
     private List<Product> createProductsForStore4(Store store) {
         return Arrays.asList(
-                createProduct("Chicken Tacos", 8.99, "chicken_tacos.png", store),
-                createProduct("Beef Burrito", 9.99, "beef_burrito.png", store),
-                createProduct("Quesadilla", 7.99, "quesadilla.png", store),
-                createProduct("Churros", 5.49, "churros.png", store),
-                createProduct("Guacamole & Chips", 4.99, "guacamole_chips.png", store),
-                createProduct("Taco Salad", 10.49, "taco_salad.png", store)
+                createProduct("Chicken Tacos", 8.99, "chicken_tacos.jpeg", store),
+                createProduct("Beef Burrito", 9.99, "beef_burrito.jpeg", store),
+                createProduct("Quesadilla", 7.99, "quesadilla.jpeg", store),
+                createProduct("Churros", 5.49, "churros.jpeg", store),
+                createProduct("Guacamole & Chips", 4.99, "guacamole_chips.jpeg", store),
+                createProduct("Taco Salad", 10.49, "taco_salad.jpeg", store)
         );
     }
 
     private List<Product> createProductsForStore5(Store store) {
         return Arrays.asList(
-                createProduct("Pepperoni Pizza", 12.99, "pepperoni_pizza.png", store),
-                createProduct("Margherita Pizza", 11.49, "margherita_pizza.png", store),
-                createProduct("BBQ Chicken Pizza", 13.99, "bbq_chicken_pizza.png", store),
-                createProduct("Vegetarian Pizza", 10.99, "vegetarian_pizza.png", store),
-                createProduct("Garlic Breadsticks", 5.99, "garlic_breadsticks.png", store),
-                createProduct("Hawaiian Pizza", 12.49, "hawaiian_pizza.png", store)
+                createProduct("Pepperoni Pizza", 12.99, "pepperoni_pizza.jpeg", store),
+                createProduct("Margherita Pizza", 11.49, "margherita_pizza.jpeg", store),
+                createProduct("BBQ Chicken Pizza", 13.99, "bbq_chicken_pizza.jpeg", store),
+                createProduct("Vegetarian Pizza", 10.99, "vegetarian_pizza.jpeg", store),
+                createProduct("Garlic Breadsticks", 5.99, "garlic_breadsticks.jpeg", store),
+                createProduct("Hawaiian Pizza", 12.49, "hawaiian_pizza.jpeg", store)
         );
     }
     private List<Product> createProductsForStore6(Store store) {
         return Arrays.asList(
                 createProduct("escurridizo", 20.99, "escurridizo.png", store)
+        );
+    }
+    private List<Product> createProductsForStore7(Store store) {
+        return Arrays.asList(
+                createProduct("AKM", 700, "akm.jpeg", store),
+                createProduct("m4", 750, "m4.jpeg", store),
+                createProduct("Desert Eagle", 550, "dssrt.jpeg", store),
+                createProduct("AWP", 2500, "awp.jpeg", store),
+                createProduct("MG-42", 5000, "mg42.jpeg", store),
+                createProduct("C4 (1pcs)", 300, "c4.jpeg", store),
+                createProduct("Railgun", 250000, "rail.jpeg", store)
         );
     }
 
