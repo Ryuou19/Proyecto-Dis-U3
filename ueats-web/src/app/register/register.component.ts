@@ -17,17 +17,24 @@ export class RegisterComponent {
   street: string = '';
   city: string = '';
 
-  constructor(private router: Router, private http: HttpClient) {}
+  // URL base dinámica
+  apiUrl: string;
+
+  constructor(private router: Router, private http: HttpClient) {
+    // Determinar la URL según el entorno
+    this.apiUrl = /Android/i.test(navigator.userAgent)
+      ? 'http://10.0.2.2:8081' // Para el emulador Android
+      : 'http://localhost:8081'; // Para la página web
+  }
 
   onRegister() {
-    this.http.post<any>('http://localhost:8081/account/register', {
+    this.http.post<any>(`${this.apiUrl}/account/register`, {
       email: this.email,
       password: this.password,
       name: this.name,
       phone: this.phone,
       street: this.street,
       city: this.city
-
     }).subscribe(
       response => {
         this.router.navigate(['/']);

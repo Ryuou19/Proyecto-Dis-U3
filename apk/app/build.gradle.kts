@@ -3,12 +3,12 @@ plugins {
 }
 
 android {
-    namespace = "com.example.apkproyecto"
+    namespace = "com.example.myapplication"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.apkproyecto"
-        minSdk = 23
+        applicationId = "com.example.myapplication"
+        minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -35,11 +35,7 @@ android {
 }
 
 dependencies {
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.google.code.gson:gson:2.8.9")
 
-    // Dependencias existentes
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)

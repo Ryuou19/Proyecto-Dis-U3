@@ -1,4 +1,4 @@
-package com.example.apkproyecto;
+package com.example.myapplication;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.apkproyecto.databinding.FragmentFirstBinding;
+import com.example.myapplication.databinding.FragmentFirstBinding;
 
 public class FirstFragment extends Fragment {
 
