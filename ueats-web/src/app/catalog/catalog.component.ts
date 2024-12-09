@@ -35,7 +35,15 @@ export class CatalogComponent implements OnInit {
   userCity: string = '';
   selectedStoreReviews: any = null;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  // URL base dinámica
+  apiUrl: string;
+
+  constructor(private http: HttpClient, private router: Router) {
+    // Determinar la URL según el entorno
+    this.apiUrl = /Android/i.test(navigator.userAgent)
+      ? 'http://10.0.2.2' // Para el emulador Android
+      : 'http://localhost'; // Para la página web
+  }
 
   ngOnInit() {
     this.userCity = localStorage.getItem('userCity') || '';
@@ -43,7 +51,7 @@ export class CatalogComponent implements OnInit {
   }
 
   loadStores() {
-    this.http.get<Store[]>(`http://localhost:8082/store?city=${this.userCity}`).subscribe(
+    this.http.get<Store[]>(`${this.apiUrl}:8082/store?city=${this.userCity}`).subscribe(
       stores => {
         // Para cada tienda, obtener su calificación promedio
         stores.forEach(store => {
@@ -56,7 +64,7 @@ export class CatalogComponent implements OnInit {
   }
 
   loadStoreRating(store: Store) {
-    this.http.get<RatingResponse>(`http://localhost:8084/rating?storeId=${store.id}`).subscribe(
+    this.http.get<RatingResponse>(`${this.apiUrl}:8084/rating?storeId=${store.id}`).subscribe(
       response => {
         store.rating = response.averageRating;
       },
@@ -68,7 +76,7 @@ export class CatalogComponent implements OnInit {
   }
 
   showReviews(store: Store) {
-    this.http.get<RatingResponse>(`http://localhost:8084/rating?storeId=${store.id}`).subscribe(
+    this.http.get<RatingResponse>(`${this.apiUrl}:8084/rating?storeId=${store.id}`).subscribe(
       response => {
         this.selectedStoreReviews = {
           ...response,

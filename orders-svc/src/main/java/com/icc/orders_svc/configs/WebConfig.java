@@ -1,4 +1,4 @@
-package com.icc.identity_svc.configs;
+package com.icc.orders_svc.configs;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -16,5 +16,4 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowCredentials(false);
     }
 }
-
 

@@ -28,10 +28,18 @@ export class ProductsComponent implements OnInit {
   cartOpen: boolean = false;
   tempQuantities: { [key: number]: number } = {};
 
+  // URL base dinámica
+  apiUrl: string;
+
   constructor(
     private http: HttpClient,
     private router: Router
-  ) {}
+  ) {
+    // Determinar la URL según el entorno
+    this.apiUrl = /Android/i.test(navigator.userAgent)
+      ? 'http://10.0.2.2' // Para el emulador Android
+      : 'http://localhost'; // Para la página web
+  }
 
   ngOnInit(): void {
     const storedStoreId = localStorage.getItem('selectedStoreId');
@@ -45,7 +53,7 @@ export class ProductsComponent implements OnInit {
   }
 
   getProductsByStore(storeId: number): void {
-    this.http.get<Product[]>(`http://localhost:8082/product?storeId=${storeId}`).subscribe(
+    this.http.get<Product[]>(`${this.apiUrl}:8082/product?storeId=${storeId}`).subscribe(
       response => {
         this.products = response;
         this.products.forEach(product => {
@@ -92,10 +100,10 @@ export class ProductsComponent implements OnInit {
     this.saveCart();
 
     const cartButton = document.querySelector('.cart-button');
-  cartButton?.classList.add('cart-bump');
-  setTimeout(() => {
-    cartButton?.classList.remove('cart-bump');
-  }, 300);
+    cartButton?.classList.add('cart-bump');
+    setTimeout(() => {
+      cartButton?.classList.remove('cart-bump');
+    }, 300);
   }
 
   removeFromCart(item: CartItem): void {
@@ -169,7 +177,7 @@ export class ProductsComponent implements OnInit {
       }))
     };
   
-    this.http.post('http://localhost:8083/order', orderData).subscribe(
+    this.http.post(`${this.apiUrl}:8083/order`, orderData).subscribe(
       response => {
         alert('Pedido realizado con éxito');
         this.clearCart();
